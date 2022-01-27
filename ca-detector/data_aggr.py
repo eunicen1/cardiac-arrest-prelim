@@ -23,6 +23,14 @@ for norm in os.listdir():
         round(np.float64(fs[0]),6),
         round(np.float64(fs[1]),6),
         round(np.float64(fs[2]),6),
+
+        # START additional columns
+        round(np.float64(P) +np.float64(QRS) ,6), #PQRS
+        round(np.float64(QRS) + np.float64(T),6), #QRST
+        #round(np.float64(P) + np.float64(T),6), #PT
+        #round(np.float64(P)+np.float64(QRS)+np.float64(T),6), #PQRST
+        # END additional columns
+
         round(np.float64(0),6),
         ]
 
@@ -44,12 +52,20 @@ for ca in files:
         round(np.float64(fs[0]),6),
         round(np.float64(fs[1]),6),
         round(np.float64(fs[2]),6),
+
+        # START additional columns
+        round(np.float64(P) +np.float64(QRS) ,6), #PQRS
+        round(np.float64(QRS) + np.float64(T),6), #QRST
+        #round(np.float64(P) + np.float64(T),6), #PT
+        #round(np.float64(P)+np.float64(QRS)+np.float64(T),6), #PQRST
+        # END additional columns
+
         round(np.float64(1),6),
         ]
 
 sigPD = pd.DataFrame.from_dict(sigD).T
 print(sigPD)
-colnames = ['P', 'QRS', 'T', 'f', 'fP', 'fQRS', 'fT', 'y']
+colnames = ['P', 'QRS', 'T', 'f', 'fP', 'fQRS', 'fT', "PQRS", "QRST", 'y']
 sigPD.columns = colnames
 sigPD=sigPD.fillna(0)
 sigPD.to_csv('../data_aggr.csv')

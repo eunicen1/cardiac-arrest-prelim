@@ -9,11 +9,22 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import plot_roc_curve as pltroc
 from sklearn.metrics import precision_recall_curve as pltprc
 from sklearn.metrics import f1_score
+from sklearn.preprocessing import MaxAbsScaler
+
 
 np.random.seed(457)
 
 #setup
-df = pd.read_csv('data2.csv', delimiter=',')
+#START added
+#df = pd.read_csv('data2.csv', delimiter=',')
+df = pd.read_csv('data_2.csv', delimiter=',')
+del df[df.columns[0]]
+scaler = MaxAbsScaler()
+scaler.fit(df)
+scaled = scaler.transform(df)
+df = pd.DataFrame(scaled, columns=df.columns)
+#STOP added
+
 df = df.sample(frac=1)
 arr = df.to_numpy()
 splitarr = np.array_split(arr, 5, axis=0)

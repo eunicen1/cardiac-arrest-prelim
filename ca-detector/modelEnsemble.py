@@ -14,11 +14,21 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import VotingClassifier
+from sklearn.preprocessing import MaxAbsScaler
 
 np.random.seed(457)
 
 #setup
+#START added
+#df = pd.read_csv('data2.csv', delimiter=',')
 df = pd.read_csv('data2.csv', delimiter=',')
+del df[df.columns[0]]
+scaler = MaxAbsScaler()
+scaler.fit(df)
+scaled = scaler.transform(df)
+df = pd.DataFrame(scaled, columns=df.columns)
+#STOP added
+
 df = df.sample(frac=1)
 arr = df.to_numpy()
 splitarr = np.array_split(arr, 5, axis=0)
@@ -36,7 +46,7 @@ Xtest = test[:,:-1]
 ytest = test[:,f-1]
 
 
-kscore = 3
+kscore = 4
 
 
 models = []
